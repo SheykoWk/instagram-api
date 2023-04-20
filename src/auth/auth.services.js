@@ -1,5 +1,6 @@
 const checkUserCredentials = require('./auth.controllers')
 const jwt = require('jsonwebtoken')
+const { jwtSecret } = require('../../config')
 
 const postLogin = (req, res) => { 
     const {email, password} = req.body
@@ -11,7 +12,7 @@ const postLogin = (req, res) => {
             const token = jwt.sign({
                 id: data.id,
                 role: data.role
-            }, 'Ac4d3ml0vers')
+            }, jwtSecret)
             res.status(200).json({token})
         })
         .catch(err => res.status(400).json(err))

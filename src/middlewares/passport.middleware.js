@@ -3,10 +3,11 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 
 const { findUserById } = require('../users/users.controllers')
+const { jwtSecret } = require('../../config')
 
 const options = {
     jwtFromRequest : ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: 'Ac4d3ml0vers'
+    secretOrKey: jwtSecret
 }
 
 passport.use(new JwtStrategy(options, (tokenDecoded, done) => {

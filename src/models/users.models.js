@@ -33,6 +33,15 @@ const Users = db.define('users', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  country: {
+    type: DataTypes.STRING,
+  },
+  profileImg: {
+    type: DataTypes.STRING
+  },
+  gender: {
+    type: DataTypes.STRING
+  },
   birthday: {
     type: DataTypes.DATEONLY
   },
@@ -42,6 +51,9 @@ const Users = db.define('users', {
   role: {
     type: DataTypes.ENUM('normal', 'admin', 'superadmin'),
     defaultValue: 'normal'
+  },
+  status: {
+    type: DataTypes.ENUM('active', 'banned', 'inactive', 'deleted')
   }
 })
 
