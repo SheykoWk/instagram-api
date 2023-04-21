@@ -27,6 +27,9 @@ const Comments = db.define('comments', {
             model: Users,
             key: 'id'
         }
+    },
+    status: {
+        type: DataTypes.ENUM('active', 'deleted')
     }
 })
 

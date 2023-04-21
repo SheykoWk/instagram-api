@@ -16,11 +16,37 @@ const initModels = () => {
     Posts.belongsTo(Users)
 
     //* Posts 1:M Comments
-    
+    Posts.hasMany(Comments)
+    Comments.belongsTo(Posts)
+
     //* Users 1:M Comments
+    Users.hasMany(Comments)
+    Comments.belongsTo(Users)
 
     //* Posts 1:M PostsMultimedia
+    Posts.hasMany(PostsMultimedia)
+    PostsMultimedia.belongsTo(Posts)
 
+    //* Users 1:M Likes
+    Users.hasMany(Likes)
+    Likes.belongsTo(Users)
+
+    //* Posts 1:M Likes
+    Posts.hasMany(Likes)
+    Likes.belongsTo(Posts)
+
+    Users.hasMany(Follows)
+    //* Users 1:M Follows
+    Follows.belongsTo(Users, {
+        foreignKey: 'userId',
+        as: 'follower'
+    })
+
+    //* Users 1:M Follows
+    Follows.belongsTo(Users, {
+        foreignKey: 'userId2',
+        as: 'followed'
+    })
 
 
 }
