@@ -24,10 +24,11 @@ const createPost = async (postObj) => {
     return newPost
 }
 
-const updatePost = async (postId, postObj) => {
+const updatePost = async (postId, userId, postObj) => {
     const selectedPost = await Posts.findOne({
         where: {
-            id: postId
+            id: postId,
+            userId: userId
         }
     })
 
@@ -38,10 +39,11 @@ const updatePost = async (postId, postObj) => {
     return updatedPost
 }
 
-const deletePost = async (postId) => {
+const deletePost = async (postId, userId) => {
     const selectedPost = await Posts.findOne({
         where: {
-            id: postId
+            id: postId,
+            userId: userId
         }
     })
 

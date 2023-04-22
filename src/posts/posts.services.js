@@ -1,4 +1,3 @@
-const { Sequelize } = require('sequelize')
 const postControllers = require('./posts.controllers')
 
 const getAllPosts = (req, res) => {
@@ -27,8 +26,9 @@ const getPostById = (req, res) => {
 }
 
 const postNewPost = (req, res) => {
-    const postObj = req.body
-    postControllers.createPost(postObj)
+    const { content } = req.body
+    const userId = req.user.id
+    postControllers.createPost({content, userId})
         .then(data => {
             res.status(201).json(data)
         })
@@ -40,7 +40,8 @@ const postNewPost = (req, res) => {
 const patchPost = (req, res) => {
     const id = req.params.id 
     const { content } = req.body
-    postControllers.updatePost(id, {content})
+    const userId = req.user.id
+    postControllers.updatePost(id, userId, {content})
         .then(data => {
             if(data) {
                 res.status(200).json(data)
@@ -55,7 +56,8 @@ const patchPost = (req, res) => {
 
 const deletePost = (req, res) => {
     const id = req.params.id;
-    postControllers.deletePost(id)
+    const userId = req.user.id
+    postControllers.deletePost(id, userId)
         .then(data => {
             if(data) {
                 res.status(200).json(data)
