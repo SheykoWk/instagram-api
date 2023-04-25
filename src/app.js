@@ -4,6 +4,7 @@ require('dotenv').config()
 
 const userRouter = require('./users/users.router')
 const authRouter = require('./auth/auth.router')
+const postRouter = require('./posts/posts.router')
 
 const db = require('./utils/database')
 const initModels = require('./models/initModels')
@@ -40,12 +41,14 @@ app.get('/', (req, res) => {
     res.json({
         message: 'Server OK', 
         myMessage: req.message,
-        myPort: process.env.PORT
+        myPort: process.env.PORT,
+        queries: req.query
     })
 }) 
 
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/pos ts', postRouter)
 
 app.listen(PORT, () => {
     console.log(`Server started at port ${PORT}`)
