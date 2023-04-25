@@ -1,7 +1,7 @@
 const Users = require('../models/users.models')
 
 const data = [
-    {
+    { 
         "id": "0120e619-3901-440b-a4f9-1e1424fc7e9d",
         "firstName": "Sahid",
         "lastName": "Ayala",

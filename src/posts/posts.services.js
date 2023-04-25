@@ -1,9 +1,23 @@
 const postControllers = require('./posts.controllers')
-
+const { host } = require('../../config')
+ 
 const getAllPosts = (req, res) => {
-    postControllers.findAllPosts()
+
+    const offset = Number(req.query.offset) || 0
+    const limit = Number(req.query.limit) || 10
+
+    postControllers.findAllPosts(offset, limit)
         .then((data) => {
-            res.status(200).json(data)
+            
+            const nextPageUrl = (data.count - offset) > limit ? `${host}/api/v1/posts?limit=${limit}&offset=${offset + limit}`: null;
+            const prevPageUrl = (offset - limit) >= 0 ? `${host}/api/v1/posts?limit=${limit}&offset=${offset - limit}`: null;
+
+            res.status(200).json({
+                count: data.count,
+                next: nextPageUrl,
+                prev: prevPageUrl,
+                results: data.rows
+            })
         })
         .catch((err) => {
             res.status(400).json({err})
