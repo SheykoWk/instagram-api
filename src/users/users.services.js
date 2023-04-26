@@ -2,6 +2,8 @@ const userControllers = require('./users.controllers')
 //! const { findAllUsers, findUserById, createUser, updateUser } = require('./users.controllers')
 
 const getAllUsers = (req, res) => {
+
+    //TODO Agregar el limit y el offset desde los queries para manejar la paginacion, y generar url's dinamicas
     userControllers.findAllUsers()
         .then((data) => {
             res.status(200).json(data)
