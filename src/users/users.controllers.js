@@ -2,9 +2,12 @@ const Users = require('../models/users.models')
 const uuid = require('uuid')
 const { hashPassword } = require('../utils/crypto')
 
-const findAllUsers = async () => {
+const findAllUsers = async (limit, offset) => {
   //TODO: Debemos modificar la peticion para manejar un contador y pasar el limit y el offset
-  const users = await Users.findAll()
+  const users = await Users.findAndCountAll({
+    limit: limit,
+    offset: offset
+  })
   return users
 }
 
