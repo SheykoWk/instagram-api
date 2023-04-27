@@ -1,6 +1,8 @@
 const router = require("express").Router();
 
 const postServices = require("./posts.services");
+const commentsServices = require('../comments/comments.services')
+
 const passportJwt = require("../middlewares/passport.middleware");
 
 router.route("/")
@@ -20,6 +22,11 @@ router.route("/:id")
     passportJwt.authenticate("jwt", { session: false }),
     postServices.deletePost
   );
+
+router.route('/:id/comments')
+    .get(commentsServices.getAllCommentsByPost)
+
+
 router.get('/user/me', passportJwt.authenticate('jwt', {session: false}), postServices.getPostsByMyUser)
 router.get('/user/:id', postServices.getPostsByUser)
 
