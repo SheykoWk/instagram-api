@@ -4,7 +4,7 @@ const db = require('../utils/database')
 const Users = require('./users.models')
 
 const Follows = db.define('follows', {
-    userId : {
+    userId : { //? Usuario que sigue a alguien (follower)
         type: DataTypes.UUID,
         primaryKey: true,
         references: {
@@ -12,7 +12,7 @@ const Follows = db.define('follows', {
             key: 'id'
         }
     },
-    userId2: {
+    userId2: { //? Usuario que es seguido por alguien (following)
         type: DataTypes.UUID,
         primaryKey: true,
         references: {
