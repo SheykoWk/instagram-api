@@ -1,21 +1,30 @@
 const Follows = require('../models/follows.models')
+const Users = require('../models/users.models')
 
 const findAllFollowsByUser = async (userId) => {
     const follows = await Follows.findAll({
         where: {
             userId: userId //? Follows
+        },
+        include: {
+            model: Users,
+            as: 'followed'
         }
     })
-    return follows
+    return follows.map(({followed}) => followed)
 }
 
 const findAllFollowersByUser = async (userId) => {
     const follows = await Follows.findAll({
         where: {
             userId2: userId //? Followers
+        },
+        include: {
+            model: Users,
+            as: 'follower'
         }
     })
-    return follows
+    return follows.map(({follower}) => follower)
 }
 
 const createFollowToUser = async (userId, userId2) => {

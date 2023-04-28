@@ -5,6 +5,7 @@ require('dotenv').config()
 const userRouter = require('./users/users.router')
 const authRouter = require('./auth/auth.router')
 const postRouter = require('./posts/posts.router')
+const followRouter = require('./follows/follows.router')
 
 const db = require('./utils/database')
 const initModels = require('./models/initModels')
@@ -29,11 +30,7 @@ app.use(cors())
 
 const loggerMiddleware = (req, res, next) => {
     console.log(`${req.method} | ${req.path}`)
-    if(req.method !== 'DELETE') {
-        next()
-        return
-    }
-    res.status(400).json({message: 'No hagas eso papu :c'})
+    next()
 }
 app.use(loggerMiddleware)
 
@@ -49,6 +46,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/posts', postRouter)
+app.use('/api/v1', followRouter)
 
 app.listen(PORT, () => {
     console.log(`Server started at port ${PORT}`)

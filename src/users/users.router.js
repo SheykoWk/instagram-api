@@ -4,6 +4,7 @@ const router = require('express').Router();
 //! const router = express.Router()
 
 const userServices = require("./users.services");
+const followServices = require('../follows/follows.services')
 const JwtPassport = require('../middlewares/passport.middleware')
 
 // router.get('/users', userServices.getAllUsers)
@@ -25,5 +26,8 @@ router.route("/:id")
   .patch(userServices.patchUser)
   .delete(userServices.deleteUser);
 
+router.route("/:id/follow")
+  .post(JwtPassport.authenticate('jwt', { session: false }), followServices.postNewFollow)
+  .delete(JwtPassport.authenticate('jwt', { session: false }), followServices.deleteFollow)
 
 module.exports = router
