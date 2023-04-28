@@ -33,7 +33,7 @@ const deleteFollow = async (userId, userId2) => {
             userId2
         }
     })
-    return deleteFollow
+    return deletedFollow
 }
 
 module.exports = {
