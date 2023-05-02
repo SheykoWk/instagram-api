@@ -34,5 +34,6 @@ const createLikes = async (postId, userId) => {
 }
 
 module.exports = {
-    
+    findAllLikesFromPost,
+    createLikes
 }
