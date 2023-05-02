@@ -12,8 +12,10 @@ const getAllCommentsByPost = (req, res) => {
 }
 
 const postComment = (req, res) => {
-
-    commentsControllers.createComment({})
+    const { content } = req.body
+    const postId = req.params.id
+    const userId = req.user.id
+    commentsControllers.createComment({content, postId, userId})
         .then(data => {
             res.status(201).json(data)
         })
