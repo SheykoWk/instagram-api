@@ -20,5 +20,5 @@
 
 pm2
 
-
+http://localhost:3000/api/v1/uploads/image.png
 

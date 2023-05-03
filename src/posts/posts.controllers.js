@@ -1,6 +1,9 @@
 const uuid = require('uuid')
 const Posts = require('../models/posts.models')
 const Users = require('../models/users.models')
+const PostMultimedia = require('../models/posts_multimedia.models')
+
+const { host } = require('../../config')
 
 const findAllPosts = async (offset, limit) => {
     const posts = await Posts.findAndCountAll({
@@ -76,11 +79,28 @@ const deletePost = async (postId, userId) => {
     return updatedPost
 }
 
+const createMultimediaPost = async (multimediaArray, postId) => {
+
+    const arrayData = multimediaArray.map(obj => {
+        return {
+            id: uuid.v4(),
+            url: `${host}/api/v1/uploads/${obj.filename}`,
+            postId: postId,
+            type: obj.type,
+            status: 'active'
+        }
+    })
+
+    const newMultimedia = await PostMultimedia.bulkCreate(arrayData)
+    return newMultimedia
+}
+
 module.exports = {
     findAllPosts,
     findPostById,
     findPostsByUserId,
     createPost,
     updatePost,
-    deletePost
+    deletePost,
+    createMultimediaPost
 }

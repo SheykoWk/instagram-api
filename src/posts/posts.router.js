@@ -5,11 +5,15 @@ const commentsServices = require('../comments/comments.services')
 const likesServices = require('../likes/likes.services')
 
 const passportJwt = require("../middlewares/passport.middleware");
+const uploads = require('../middlewares/multer.middleware')
+
+
 
 router.route("/")
   .get(postServices.getAllPosts)
   .post(
     passportJwt.authenticate("jwt", { session: false }),
+    uploads.array('postImages', 10),
     postServices.postNewPost
   );
 

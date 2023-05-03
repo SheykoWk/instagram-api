@@ -65,6 +65,12 @@ const getPostsByMyUser = (req, res) => {
 const postNewPost = (req, res) => {
     const { content } = req.body
     const userId = req.user.id
+
+    if(req.files && req.files.length){
+        //? Agregariamos los archivos a mi base de datos :D
+        postControllers.createMultimediaPost(req.files, )
+    }
+
     postControllers.createPost({content, userId})
         .then(data => {
             res.status(201).json(data)
