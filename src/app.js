@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
 
 app.get('/api/v1/uploads/:fileName', (req, res) => {
     //const fileName = req.params.fileName
-    res.status(200).sendFile(path.resolve('./public/') + '/' + req.params.fileName)
+    res.status(200).sendFile(path.resolve('public/') + '/' + req.params.fileName)
 })
 
 app.post('/api/v1/add-file', upload.single('my-image') ,(req, res) => {
@@ -60,6 +60,10 @@ app.use('/api/v1/users', userRouter)
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/posts', postRouter)
 app.use('/api/v1', followRouter)
+
+app.use('*', (req, res) => {
+    res.status(404).json({message: 'Not Found'})
+})
 
 app.listen(PORT, () => {
     console.log(`Server started at port ${PORT}`)

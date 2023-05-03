@@ -9,9 +9,11 @@ const findAllPosts = async (offset, limit) => {
     const posts = await Posts.findAndCountAll({
         limit: limit,
         offset: offset,
-        include: {
+        include: [{
             model: Users
-        }
+        },{
+            model: PostMultimedia
+        }]
     })
     return posts
 }

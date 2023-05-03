@@ -66,13 +66,15 @@ const postNewPost = (req, res) => {
     const { content } = req.body
     const userId = req.user.id
 
-    if(req.files && req.files.length){
-        //? Agregariamos los archivos a mi base de datos :D
-        postControllers.createMultimediaPost(req.files, )
-    }
-
+    
     postControllers.createPost({content, userId})
-        .then(data => {
+        .then(async(data) => {
+        
+            if(req.files && req.files.length){
+                //? Agregariamos los archivos a mi base de datos :D
+                await postControllers.createMultimediaPost(req.files, data.id)
+            }
+
             res.status(201).json(data)
         })
         .catch(err => {
