@@ -1,0 +1,35 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Api de Instagram",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/users": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Al hacer esta peticion, deberia retornar todos los usuarios"
+          }
+        }
+      }
+    },
+    "/api/v1/users/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Al hacer esta peticion obtenemos un usuario en especifico"
+          }
+        }
+      }
+    }
+  }
+}
